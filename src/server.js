@@ -18,4 +18,4 @@ import routes from './routes';
 routes(app);
 
 //server listen
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`it's working bro, in ${port}!`));
