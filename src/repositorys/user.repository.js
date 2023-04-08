@@ -13,7 +13,9 @@ export const updateUser = async (data) => {
             id: data.id,
         },
         data: {
-            data,
+            name: data.name,
+            email: data.email,
+            password: data.password,
         },
     });
     return user;
