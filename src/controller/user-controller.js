@@ -6,9 +6,21 @@ import {
     updateUser,
 } from '../repositorys/user.repository';
 
+const bcrypt = require('bcrypt');
+
 export const create = async (req, res) => {
     try {
-        const reqdata = await createUser(req.body);
+        const password = await req.body.password;
+
+        var salt = bcrypt.genSaltSync(8);
+        var hash = bcrypt.hashSync(password, salt);
+
+        const reqdata = await req.body;
+
+        reqdata.password = hash;
+
+        await createUser(reqdata);
+
         res.status(201).json(reqdata);
     } catch (e) {
         res.status(400).json(e);
