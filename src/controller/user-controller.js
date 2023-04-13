@@ -68,6 +68,12 @@ export const update = async (req, res) => {
         if (!reqdata.id) {
             res.status(400).json('No ID in request body');
         } else {
+            const password = await req.body.password;
+            var salt = bcrypt.genSaltSync(8);
+            var hash = bcrypt.hashSync(password, salt);
+
+            reqdata.password = hash;
+
             const dbdata = await updateUser(reqdata);
             res.status(202).json(dbdata);
         }
