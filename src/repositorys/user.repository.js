@@ -16,6 +16,14 @@ export const updateUser = async (data) => {
             name: data.name,
             email: data.email,
             password: data.password,
+            address_zip: data.address_zip,
+            address_street: data.address_street,
+            address_number: data.address_number,
+            address_neighborhood: data.address_neighborhood,
+            address_city: data.address_city,
+            address_state: data.address_state,
+            addrss_country: data.addrss_country,
+            phone: data.phone,
         },
     });
     return user;
