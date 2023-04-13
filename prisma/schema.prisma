@@ -16,6 +16,26 @@ model User {
   name String
   email String @unique
   password String
+  address_zip String?
+  address_street String?
+  address_number String?
+  address_neighborhood String?
+  address_city String?
+  address_state String?
+  addrss_country String?
+  phone String?
+  product_register Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  price Float
+  register User @relation(fields: [idUser], references: [id])
+  idUser Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
