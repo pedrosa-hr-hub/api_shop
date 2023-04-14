@@ -4,6 +4,7 @@ import {
     findAllUser,
     findbyIdUser,
     updateUser,
+    findbyEmailUser,
 } from '../repositorys/user.repository';
 
 const bcrypt = require('bcrypt');
@@ -76,6 +77,39 @@ export const update = async (req, res) => {
 
             const dbdata = await updateUser(reqdata);
             res.status(202).json(dbdata);
+        }
+    } catch (e) {
+        res.status(400).json(e);
+    }
+};
+
+export const session = async (req, res) => {
+    try {
+        const reqdata = await req.body;
+
+        const dbdata = await findbyEmailUser(reqdata);
+
+        if (dbdata == null) {
+            res.status(401).json('Verify your credentials');
+        } else {
+
+            const password = await req.body.password;
+
+            if (!req.session) {
+                req.session = {};
+              }
+
+            bcrypt.compare(password, dbdata.password, (error, result) => {
+                if (result == true) {
+                    req.session.data = {
+                        username: dbdata.username,
+                        email: dbdata.email,
+                      };
+                    res.json('Sessão criada!');
+                } else {
+                    res.status(401).json('Password not match');
+                }
+            });
         }
     } catch (e) {
         res.status(400).json(e);
