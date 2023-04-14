@@ -4,6 +4,7 @@ import {
     getAll,
     getById,
     update,
+    session,
 } from '../controller/user-controller';
 
 const userRoutes = (app) => {
@@ -12,6 +13,7 @@ const userRoutes = (app) => {
     app.get('/user', getAll);
     app.get('/userid', getById);
     app.put('/user', update);
+    app.get('/session', session);
 };
 
 export default userRoutes;
