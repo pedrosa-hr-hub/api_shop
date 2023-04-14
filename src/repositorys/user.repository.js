@@ -51,3 +51,12 @@ export const findbyIdUser = async (data) => {
     });
     return user;
 };
+
+export const findbyEmailUser = async (data) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            email: data.email,
+        },
+    });
+    return user;
+};
