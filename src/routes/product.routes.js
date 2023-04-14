@@ -13,3 +13,5 @@ const productRoutes = (app) => {
     app.get('/productid', getById);
     app.put('/product', update);
 };
+
+export default productRoutes;
