@@ -95,16 +95,10 @@ export const session = async (req, res) => {
 
             const password = await req.body.password;
 
-            if (!req.session) {
-                req.session = {};
-              }
-
             bcrypt.compare(password, dbdata.password, (error, result) => {
                 if (result == true) {
-                    req.session.data = {
-                        username: dbdata.username,
-                        email: dbdata.email,
-                      };
+                    const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000);
+                    res.cookie('session_id', dbdata.id, {expires: oneHourFromNow});
                     res.json('Sessão criada!');
                 } else {
                     res.status(401).json('Password not match');
