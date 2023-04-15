@@ -13,30 +13,13 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
+//cookie parser
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 //routes
 import routes from './routes';
 routes(app);
-
-//config middleware
-const session = require('express-session');
-
-app.use(
-    session({
-        secret: 'Pedro',
-        resave: false,
-        saveUninitialized: true,
-    })
-);
-
-const sessionMiddleware = (req, res, next) => {
-    if (!req.session.data) {
-        res.status(401).json('Sessão não encontrada!');
-    } else {
-        next();
-    }
-};
-
-app.use(sessionMiddleware);
 
 //server listen
 app.listen(port, () => console.log(`it's working bro, in ${port}!`));
