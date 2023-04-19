@@ -25,6 +25,7 @@ model User {
   addrss_country String?
   phone String?
   product_register Product[]
+  order_register Order[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -36,6 +37,17 @@ model Product {
   price Float
   register User @relation(fields: [idUser], references: [id])
   idUser Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order_register Order[]
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [idUser], references: [id])
+  idUser Int
+  product Product @relation(fields: [idProduct], references: [id])
+  idProduct Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
