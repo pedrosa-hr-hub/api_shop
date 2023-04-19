@@ -1,16 +1,16 @@
 import {
-    createOrder,
-    updateOrder,
-    deleteOrder,
-    findAllOrder,
-    findbyIdOrder,
-} from '../repositorys/order.repository';
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    findAllProduct,
+    findbyIdProduct,
+} from '../repositorys/product.repository';
 
 export const create = async (req, res) => {
     try {
         const reqdata = await req.body;
 
-        await createOrder(reqdata);
+        await createProduct(reqdata);
 
         res.status(201).json(reqdata);
     } catch (e) {
@@ -24,7 +24,7 @@ export const drop = async (req, res) => {
         if (!reqdata.id) {
             res.status(400).json('No ID in request body');
         } else {
-            await deleteOrder(data);
+            await deleteProduct(data);
         }
         res.status(202).json('Deleted!');
     } catch (e) {
@@ -34,7 +34,7 @@ export const drop = async (req, res) => {
 
 export const getAll = async (req, res) => {
     try {
-        const dbdata = await findAllOrder();
+        const dbdata = await findAllProduct();
         res.status(200).json(dbdata);
     } catch (e) {
         res.status(400).json(e);
@@ -47,7 +47,7 @@ export const getById = async (req, res) => {
         if (!reqdata.id) {
             res.status(400).json('No ID in request body');
         } else {
-            const dbdata = await findbyIdOrder(reqdata);
+            const dbdata = await findbyIdProduct(reqdata);
             res.status(200).json(dbdata);
         }
     } catch (e) {
@@ -61,7 +61,7 @@ export const update = async (req, res) => {
         if (!reqdata.id) {
             res.status(400).json('No ID in request body');
         } else {
-            const dbdata = await updateOrder(reqdata);
+            const dbdata = await updateProduct(reqdata);
             res.status(202).json(dbdata);
         }
     } catch (e) {
