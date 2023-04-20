@@ -8,8 +8,6 @@ import {
 } from '../repositorys/user.repository';
 
 const bcrypt = require('bcrypt');
-const { v4: uuidv4 } = require('uuid');
-const idCookie = uuidv4();
 
 export const create = async (req, res) => {
     try {
@@ -99,8 +97,13 @@ export const session = async (req, res) => {
 
             bcrypt.compare(password, dbdata.password, (error, result) => {
                 if (result == true) {
+                    const email = reqdata.email
+                    var salt = bcrypt.genSaltSync(12);
+                    var hash = bcrypt.hashSync(email, salt);
+
+
                     const oneHourFromNow = new Date(Date.now() + 60 * 60 * 1000);
-                    res.cookie('session_id', idCookie, {expires: oneHourFromNow});
+                    res.cookie('session_id', hash, {expires: oneHourFromNow});
                     res.json('Session created!');
                 } else {
                     res.status(401).json('Password or E-mail not match! Try agin!');
