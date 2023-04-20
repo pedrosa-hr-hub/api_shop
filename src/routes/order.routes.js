@@ -7,11 +7,11 @@ import {
 } from '../controller/order-controller';
 
 const orderRoutes = (app) => {
-    app.post('/product', create);
-    app.delete('/product', drop);
-    app.get('/product', getAll);
-    app.get('/productid', getById);
-    app.put('/product', update);
+    app.post('/order', create);
+    app.delete('/order', drop);
+    app.get('/order', getAll);
+    app.get('/orderid', getById);
+    app.put('/order', update);
 };
 
 export default orderRoutes;
