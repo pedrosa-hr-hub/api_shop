@@ -35,19 +35,30 @@ model Product {
   name String
   description String
   price Float
-  register User @relation(fields: [idUser], references: [id])
   idUser Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  order_register Order[]
+  orderProducts OrderProduct[]
+  register User @relation(fields: [idUser], references: [id])
+}
+
+model OrderProduct {
+  id Int @id @default(autoincrement())
+  orderId Int
+  productId Int
+  quantity Int
+  price Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order Order    @relation(fields: [orderId], references: [id])
+  product Product  @relation(fields: [productId], references: [id])
 }
 
 model Order {
   id Int @id @default(autoincrement())
   user User @relation(fields: [idUser], references: [id])
   idUser Int
-  product Product @relation(fields: [idProduct], references: [id])
-  idProduct Int
+  orderProducts OrderProduct[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
