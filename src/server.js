@@ -10,7 +10,7 @@ const routes = require('./routes');
 
 //cors config
 const cors = require('cors');
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(express.json());
 
 //cookie parser
