@@ -42,3 +42,11 @@ export const findbyIdOrder = async (data) => {
     });
     return order;
 };
+
+export const createProductOrder = async (data) => {
+    const OrderProduct = await prisma.product.create({
+        data,
+    });
+
+    return OrderProduct;
+}
