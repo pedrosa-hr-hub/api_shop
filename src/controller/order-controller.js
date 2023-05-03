@@ -4,10 +4,7 @@ import {
     deleteOrder,
     findAllOrder,
     findbyIdOrder,
-    createProductOrder,
 } from '../repositorys/order.repository';
-
-import { findbyIdProduct } from '../repositorys/product.repository';
 
 export const create = async (req, res) => {
     try {
@@ -66,32 +63,6 @@ export const update = async (req, res) => {
         } else {
             const dbdata = await updateOrder(reqdata);
             res.status(202).json(dbdata);
-        }
-    } catch (e) {
-        res.status(400).json(e);
-    }
-};
-
-export const createOrderProduct = async (req, res) => {
-    try {
-        const reqdata = await req.body;
-
-        if (!reqdata.Orderid) {
-            res.status(400).json('No Order ID in request body');
-        } else {
-            if (!reqdata.ProductId) {
-                res.status(400).json('No Product ID in request body');
-            } else {
-                const productId = reqdata.ProductId;
-
-                const dbdataProduct = findbyIdProduct(productId);
-
-                reqdata.price = dbdataProduct.price * reqdata.quanty;
-
-                const dbdata = await createProductOrder(reqdata);
-
-                res.status(201).json(dbdata);
-            }
         }
     } catch (e) {
         res.status(400).json(e);
