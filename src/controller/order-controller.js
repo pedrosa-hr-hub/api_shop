@@ -6,13 +6,23 @@ import {
     findbyIdOrder,
 } from '../repositorys/order.repository';
 
+import { findbyIdProduct } from '../repositorys/product.repository';
+
 export const create = async (req, res) => {
     try {
         const reqdata = await req.body;
 
-        await createOrder(reqdata);
+        const dbtada = await findbyIdProduct({ id: reqdata.productId });
 
-        res.status(201).json(reqdata);
+        if (!dbtada) {
+            res.status(201).json('Product not exist!');
+        } else {
+            reqdata.price = dbtada.price * reqdata.quantity;
+
+            await createOrder(reqdata);
+
+            res.status(201).json(reqdata);
+        }
     } catch (e) {
         res.status(400).json(e);
     }
